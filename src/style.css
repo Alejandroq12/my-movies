@@ -66,3 +66,19 @@ nav {
 .nav-links a:hover {
   color: var(--dark-blue);
 }
+
+.container {
+  height: 85vh;
+  border: 1px solid var(--black);
+}
+
+footer {
+  height: 6vh;
+  border: 1px solid var(--black);
+  display: flex;
+  align-items: center;
+}
+
+footer p {
+  margin-left: 1rem;
+}
