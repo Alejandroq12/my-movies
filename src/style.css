@@ -1,7 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap');
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --black: #000;
+  --white-gray: #f5f5f5;
+  --light-gray: lightgray;
+  --aqua: #0ff;
+  --light-blue: #007bff;
+  --dark-blue: #0056b3;
+  --gray: #6c757d;
+}
+
 .hello {
-    color: red;
-  }
+  color: red;
+}
 
 body {
-    background-color: bisque;
+  font-family: 'Heebo', sans-serif;
+  font-size: 16px;
+  background-color: var(--white-gray);
+}
+
+header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem 2rem;
+  border: 1px solid var(--black);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+nav {
+  text-align: center;
+}
+
+.nav-links {
+  list-style: none;
+}
+
+.nav-links li {
+  display: inline;
+  margin: 0 0.5rem;
+}
+
+.nav-links a {
+  color: var(--gray);
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: var(--dark-blue);
 }
