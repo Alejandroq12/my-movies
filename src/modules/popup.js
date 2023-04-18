@@ -1,16 +1,16 @@
 // pop-up section
-import {shows} from '../index.js';
+import { shows } from '../index.js';
 
 export function initializePopupListeners() {
-const commentBtn = document.querySelectorAll('.card-comment');
-const popMenu = document.querySelector('.seePopup');
+  const commentBtn = document.querySelectorAll('.card-comment');
+  const popMenu = document.querySelector('.seePopup');
 
-commentBtn.forEach((btn, index) => {
-  btn.addEventListener('click', () => {
-    document.body.classList.toggle('no-scroll');
-    popMenu.classList.add('act');
-    const showData = shows[index];
-    popMenu.innerHTML = `
+  commentBtn.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      document.body.classList.toggle('no-scroll');
+      popMenu.classList.add('act');
+      const showData = shows[index];
+      popMenu.innerHTML = `
     <section id="commentPopup">
   <div class="imgContainer">
     <img class= "commentImg" src="${showData.image.original}" alt="Comment Image"><span class="close-btn">&#x2715;</span>
@@ -24,11 +24,11 @@ commentBtn.forEach((btn, index) => {
 </div>
 </section>`;
 
-    const popClose = document.querySelector('.close-btn');
-    popClose.addEventListener('click', () => {
-      popMenu.classList.remove('act');
-      document.body.classList.remove('no-scroll');
+      const popClose = document.querySelector('.close-btn');
+      popClose.addEventListener('click', () => {
+        popMenu.classList.remove('act');
+        document.body.classList.remove('no-scroll');
+      });
     });
   });
-});
 }
