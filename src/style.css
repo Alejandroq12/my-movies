@@ -105,3 +105,16 @@ footer p {
   padding: 1rem;
   border-radius: 8px;
 }
+
+.card-one__img,
+.card-two__img,
+.card-three__img,
+.card-four__img,
+.card-five__img,
+.card-six__img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
