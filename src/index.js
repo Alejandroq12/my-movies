@@ -1,14 +1,11 @@
-// import _ from 'lodash';
 import './style.css';
 
-// function component() {
-//     const element = document.createElement('div');
-  
-//     // Lodash, now imported by this script
-//     element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-//     element.classList.add('hello');
-  
-//     return element;
-//   }
-  
-//   document.body.appendChild(component());
+async function fetchTVShow(showId) {
+  try {
+    const response = await fetch(`https://api.tvmaze.com/shows/${showId}`);
+    const showData = await response.json();
+    return showData;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
