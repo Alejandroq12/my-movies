@@ -1,4 +1,5 @@
 import './style.css';
+import { initializePopupListeners } from './popup.js';
 
 function createCardComponent(index, imgSrc = '', text = '') {
     return `
@@ -7,22 +8,6 @@ function createCardComponent(index, imgSrc = '', text = '') {
         <div class="card-content">
           <p class="card-text">${text}</p>
           <div class="likes-container">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              class="card-likes"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-              ></path>
-            </svg>
             <span>5 Likes</span>
           </div>
         </div>
@@ -35,8 +20,7 @@ function createCardComponent(index, imgSrc = '', text = '') {
         </button>
       </div>
     `;
-  }
-  
+}
 
 async function fetchTVShow(showId) {
   try {
@@ -47,6 +31,8 @@ async function fetchTVShow(showId) {
     console.error('Error fetching data:', error);
   }
 }
+export const shows = [];
+
 
 async function fetchAndUpdateCard(showId, cardIndex) {
     let showData;
@@ -62,17 +48,24 @@ async function fetchAndUpdateCard(showId, cardIndex) {
         currentShowId += 1;
       }
     }
-  
+    shows.push(showData);
+
     const cardContainer = document.querySelector('.container');
     const cardComponent = createCardComponent(cardIndex, showData.image.original, showData.name);
     cardContainer.insertAdjacentHTML('beforeend', cardComponent);
+}
+
+async function main() {
+  const showIds = Array.from({ length: 21 }, (_, index) => index + 1);
+  const cardIndices = Array.from({ length: 21 }, (_, index) => `card${index + 1}`);
+
+  for (let index = 0; index < showIds.length; index++) {
+    const showId = showIds[index];
+    const cardIndex = cardIndices[index];
+    await fetchAndUpdateCard(showId, cardIndex);
   }
-  
 
-const showIds = Array.from({ length: 21 }, (_, index) => index + 1);
-const cardIndices = Array.from({ length: 21 }, (_, index) => `card${index + 1}`);
+  initializePopupListeners();
+}
 
-showIds.forEach((showId, index) => {
-  const cardIndex = cardIndices[index];
-  fetchAndUpdateCard(showId, cardIndex);
-});
+main();
