@@ -15,6 +15,7 @@
   --light-blue: #007bff;
   --dark-blue: #0056b3;
   --gray: #6c757d;
+  --white: #fff;
 }
 
 .hello {
@@ -88,4 +89,19 @@ footer p {
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
   padding: 1rem;
+}
+
+.container_card__one,
+.container_card__two,
+.container_card__three,
+.container_card__four,
+.container_card__five,
+.container_card__six {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
 }
