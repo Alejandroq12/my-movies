@@ -138,3 +138,18 @@ footer p {
   display: inline-block;
   margin-right: 0.5rem;
 }
+
+.card-one__comment,
+.card-two__comment,
+.card-three__comment,
+.card-four__comment,
+.card-five__comment,
+.card-six__comment {
+  background-color: var(--light-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
