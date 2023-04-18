@@ -1,7 +1,7 @@
 // pop-up section
-import {shows} from './index.js';
+import {shows} from '../index.js';
 
-export function initilizePopupListeners() {
+export function initializePopupListeners() {
 const commentBtn = document.querySelectorAll('.card-comment');
 const popMenu = document.querySelector('.seePopup');
 

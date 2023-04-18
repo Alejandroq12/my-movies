@@ -1,5 +1,5 @@
 import './style.css';
-import { initializePopupListeners } from './popup.js';
+import { initializePopupListeners } from './modules/popup.js';
 
 function createCardComponent(index, imgSrc = '', text = '') {
     return `
