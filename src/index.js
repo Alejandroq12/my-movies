@@ -9,3 +9,16 @@ async function fetchTVShow(showId) {
     console.error('Error fetching data:', error);
   }
 }
+
+function updateCard(cardIndex, showData) {
+  const cardImg = document.querySelector(`.card-${cardIndex}__img`);
+  const cardText = document.querySelector(`.card-${cardIndex}__text`);
+
+  cardText.innerText = showData.name;
+
+  if (showData.image && showData.image.original) {
+    cardImg.src = showData.image.original;
+  } else {
+    cardImg.src = ''; // Set a default image URL if there's no image available
+  }
+}
