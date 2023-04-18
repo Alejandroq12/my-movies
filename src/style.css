@@ -100,7 +100,7 @@ footer p {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #ffffff;
+  background-color: var(--white);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   border-radius: 8px;
@@ -119,6 +119,13 @@ footer p {
   margin-bottom: 1rem;
 }
 
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
 .card-one__text,
 .card-two__text,
 .card-three__text,
@@ -126,7 +133,11 @@ footer p {
 .card-five__text,
 .card-six__text {
   flex-grow: 1;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
+}
+
+.likes-container {
+  text-align: right;
 }
 
 .card-one__likes,
@@ -135,7 +146,7 @@ footer p {
 .card-four__likes,
 .card-five__likes,
 .card-six__likes {
-  display: inline-block;
+  display: block;
   margin-right: 0.5rem;
 }
 
