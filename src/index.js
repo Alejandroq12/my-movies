@@ -28,4 +28,9 @@ async function fetchAndUpdateCard(showId, cardIndex) {
   updateCard(cardIndex, showData);
 }
 
-
+fetchAndUpdateCard(1, 'one');
+fetchAndUpdateCard(2, 'two');
+fetchAndUpdateCard(3, 'three');
+fetchAndUpdateCard(4, 'four');
+fetchAndUpdateCard(5, 'five');
+fetchAndUpdateCard(6, 'six');
