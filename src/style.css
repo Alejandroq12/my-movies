@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 *,
 *::before,
 *::after {
@@ -68,6 +69,76 @@ nav {
   color: var(--dark-blue);
 }
 
+/* popup section */
+#commentPopup {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 90%;
+  height: 90%;
+  border: 1px solid #dfe1e6;
+  border-radius: 16px;
+  overflow: auto;
+  padding: 1rem;
+}
+
+.imgContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.commentImg {
+  height: 20rem;
+  width: 30rem;
+  border: 1px solid black;
+}
+
+#commentTitle {
+  font-size: 3rem;
+  text-align: center;
+}
+
+#commentDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  gap: 1rem;
+}
+
+#commentDetails p {
+  font-size: 2rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 45px;
+  right: 121px;
+}
+
+.close-btn:hover {
+  cursor: pointer;
+}
+
+.seePopup {
+  display: none;
+  transition: all 0.5s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 99;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.act {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 footer {
   height: 6vh;
   border: 1px solid var(--black);
@@ -75,7 +146,7 @@ footer {
   align-items: center;
 }
 
-footer p {
+.footerP {
   margin-left: 1rem;
 }
 
@@ -91,7 +162,7 @@ footer p {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #ffffff;
+  background-color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   border-radius: 8px;
@@ -126,8 +197,8 @@ footer p {
 }
 
 .card-comment {
-  background-color: #0077cc;
-  color: #ffffff;
+  background-color: #07c;
+  color: #fff;
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1rem;

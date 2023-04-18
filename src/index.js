@@ -1,13 +1,14 @@
 import './style.css';
+import initializePopupListeners from './modules/popup.js';
 
 function createCardComponent(index, imgSrc = '', text = '') {
-    return `
+  return `
       <div class="container_card">
         <img src="${imgSrc}" alt="Image of the movie" class="card-img" />
         <div class="card-content">
           <p class="card-text">${text}</p>
           <div class="likes-container">
-            <svg
+          <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -35,8 +36,7 @@ function createCardComponent(index, imgSrc = '', text = '') {
         </button>
       </div>
     `;
-  }
-  
+}
 
 async function fetchTVShow(showId) {
   try {
@@ -44,35 +44,44 @@ async function fetchTVShow(showId) {
     const showData = await response.json();
     return showData;
   } catch (error) {
-    console.error('Error fetching data:', error);
+    return null;
   }
 }
 
+export const shows = [];
+
 async function fetchAndUpdateCard(showId, cardIndex) {
-    let showData;
-    let validShow = false;
-    let currentShowId = showId;
-  
-    while (!validShow) {
-      showData = await fetchTVShow(currentShowId);
-  
-      if (showData && showData.name && showData.image && showData.image.original) {
-        validShow = true;
-      } else {
-        currentShowId += 1;
-      }
+  const fetchValidShowData = async (currentShowId) => {
+    const show = await fetchTVShow(currentShowId);
+    if (show && show.name && show.image && show.image.original) {
+      return show;
     }
-  
-    const cardContainer = document.querySelector('.container');
-    const cardComponent = createCardComponent(cardIndex, showData.image.original, showData.name);
-    cardContainer.insertAdjacentHTML('beforeend', cardComponent);
-  }
-  
+    return fetchValidShowData(currentShowId + 1);
+  };
 
-const showIds = Array.from({ length: 21 }, (_, index) => index + 1);
-const cardIndices = Array.from({ length: 21 }, (_, index) => `card${index + 1}`);
+  const showData = await fetchValidShowData(showId);
 
-showIds.forEach((showId, index) => {
-  const cardIndex = cardIndices[index];
-  fetchAndUpdateCard(showId, cardIndex);
-});
+  shows.push(showData);
+
+  const cardContainer = document.querySelector('.container');
+  const cardComponent = createCardComponent(cardIndex, showData.image.original, showData.name);
+  cardContainer.insertAdjacentHTML('beforeend', cardComponent);
+}
+
+async function main() {
+  const showIds = Array.from({ length: 21 }, (_, index) => index + 1);
+  const cardIndices = Array.from({ length: 21 }, (_, index) => `card${index + 1}`);
+
+  await Promise.all(
+    showIds.map(async (showId, index) => {
+      const cardIndex = cardIndices[index];
+      await fetchAndUpdateCard(showId, cardIndex);
+    }),
+  );
+
+  initializePopupListeners(shows);
+}
+
+main();
+
+export default main;
