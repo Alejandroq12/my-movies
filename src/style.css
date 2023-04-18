@@ -100,7 +100,7 @@ footer p {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: var(--white);
+  background-color: #ffffff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   border-radius: 8px;
@@ -133,7 +133,6 @@ footer p {
 .card-five__text,
 .card-six__text {
   flex-grow: 1;
-  /* margin-bottom: 1rem; */
 }
 
 .likes-container {
@@ -147,7 +146,7 @@ footer p {
 .card-five__likes,
 .card-six__likes {
   display: block;
-  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .card-one__comment,
@@ -156,11 +155,23 @@ footer p {
 .card-four__comment,
 .card-five__comment,
 .card-six__comment {
-  background-color: var(--light-blue);
-  color: var(--white);
+  background-color: #0077cc;
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
 }
