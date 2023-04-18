@@ -1,22 +1,26 @@
 // pop-up section
-const commentBtn = document.querySelectorAll('.commentBtn');
+import {shows} from './index.js';
+
+export function initilizePopupListeners() {
+const commentBtn = document.querySelectorAll('.card-comment');
 const popMenu = document.querySelector('.seePopup');
 
-seeProject.forEach((btn, index) => {
+commentBtn.forEach((btn, index) => {
   btn.addEventListener('click', () => {
     document.body.classList.toggle('no-scroll');
     popMenu.classList.add('act');
+    const showData = shows[index];
     popMenu.innerHTML = `
     <section id="commentPopup">
   <div class="imgContainer">
-    <img class= "commentImg" src="/assets/Book1.png" alt="Comment Image"><span class="close-btn">&#x2715;</span>
+    <img class= "commentImg" src="${showData.image.original}" alt="Comment Image"><span class="close-btn">&#x2715;</span>
   </div>
-  <h3 id="commentTitle">Space 3</h3>
+  <h3 id="commentTitle">${showData.name}</h3>
 <div id="commentDetails">
-  <p>Fuel: titanium</p>
-  <p>Length: 100,000</p>
-  <p>Weight: 400</p>
-  <p>Power: 100,000,000</p>
+  <p>Language: ${showData.language}</p>
+  <p>runtime: ${showData.runtime}</p>
+  <p>type: ${showData.type}</p>
+  <p>status: ${showData.status}</p>
 </div>
 </section>`;
 
@@ -27,3 +31,4 @@ seeProject.forEach((btn, index) => {
     });
   });
 });
+}
