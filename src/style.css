@@ -118,3 +118,23 @@ footer p {
   border-radius: 4px;
   margin-bottom: 1rem;
 }
+
+.card-one__text,
+.card-two__text,
+.card-three__text,
+.card-four__text,
+.card-five__text,
+.card-six__text {
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.card-one__likes,
+.card-two__likes,
+.card-three__likes,
+.card-four__likes,
+.card-five__likes,
+.card-six__likes {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
