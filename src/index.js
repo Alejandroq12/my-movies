@@ -22,3 +22,10 @@ function updateCard(cardIndex, showData) {
     cardImg.src = ''; // Set a default image URL if there's no image available
   }
 }
+
+async function fetchAndUpdateCard(showId, cardIndex) {
+  const showData = await fetchTVShow(showId);
+  updateCard(cardIndex, showData);
+}
+
+
