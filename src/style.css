@@ -82,3 +82,10 @@ footer {
 footer p {
   margin-left: 1rem;
 }
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  padding: 1rem;
+}
