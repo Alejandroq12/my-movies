@@ -68,9 +68,80 @@ nav {
 }
 
 .container {
-  height: 85vh;
   border: 1px solid var(--black);
 }
+
+/* popup section */
+#commentPopup {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 90%;
+  height: 90%;
+  border: 1px solid #dfe1e6;
+  border-radius: 16px;
+  overflow: auto;
+  padding: 1rem;
+}
+
+.imgContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.commentImg {
+  height: 20rem;
+  width: 30rem;
+  border: 1px solid black;
+}
+
+#commentTitle {
+  font-size: 3rem;
+  text-align: center;
+}
+
+#commentDetails {
+display: grid;
+grid-template-columns: 1fr 1fr;
+justify-items: center;
+gap: 1rem;
+;
+}
+
+#commentDetails p {
+  font-size: 2rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 45px;
+  right: 121px;
+}
+
+.close-btn:hover {
+  cursor: pointer;
+}
+
+.seePopup {
+  display: none;
+  transition: all 0.5s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 99;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.act {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
 
 footer {
   height: 6vh;
