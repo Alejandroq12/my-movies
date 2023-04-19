@@ -97,6 +97,23 @@ function updateLikesCount(likesData) {
   });
 }
 
+async function createApp() {
+  try {
+    const response = await fetch(`${involvementApiBaseURL}/apps/`, {
+      method: 'POST',
+    });
+
+    if (response.ok) {
+      const appId = await response.text();
+      return appId;
+    }
+
+    throw new Error('Error creating app');
+  } catch (error) {
+    // console.error('Error creating app:', error);
+    return null;
+  }
+}
 
 async function main() {
   const appId = await createApp();
