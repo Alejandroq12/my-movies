@@ -219,6 +219,7 @@ form {
   width: 20rem;
   gap: 1rem;
   margin-left: 11rem;
+}
 
 .notification {
   position: fixed;
