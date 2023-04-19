@@ -1,4 +1,5 @@
 import fetchComments from './displayComment.js';
+import commentCounter from './commentCounter.js';
 
 const addComment = async (showId, name, comment) => {
   const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/p01X0Mr4syDGinD4IhgC/comments', {
@@ -29,20 +30,24 @@ function createCommentForm(showId) {
       </div>
     `;
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const name = event.target.elements.name.value;
     const comment = event.target.elements.comment.value;
 
-    addComment(showId, name, comment)
-      .then(() => {
-        event.target.reset();
-        fetchComments(showId);
-      })
-      .catch((error) => {
-        console.error('Error adding comment:', error);
-      });
+    try {
+      await addComment(showId, name, comment);
+      event.target.reset();
+      fetchComments(showId);
+
+      // Update the comment count after adding a new comment and fetching comments
+      const commentCountElem = document.getElementById('commentCount');
+      const commentCount = await commentCounter.getCommentCount(showId); // Add await here
+      commentCountElem.innerHTML = commentCount > 0 ? commentCount : '0';
+    } catch (error) {
+      console.error('Error adding comment:', error);
+    }
   });
 
   return form;
