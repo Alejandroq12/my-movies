@@ -50,7 +50,8 @@ async function fetchTVShow(showId) {
   }
 }
 
-export const shows = [];
+const shows = [];
+export default shows;
 
 async function fetchAndUpdateCard(showId, cardIndex) {
   const fetchValidShowData = async (currentShowId) => {
@@ -97,46 +98,77 @@ function updateLikesCount(likesData) {
   });
 }
 
-async function createApp() {
-  try {
-    const response = await fetch(`${involvementApiBaseURL}/apps/`, {
-      method: 'POST',
+function attachLikeButtonListener() {
+  const appId = 'p01X0Mr4syDGinD4IhgC';
+  const likeButtons = document.querySelectorAll('.card-likes');
+
+  const showNotification = (message) => {
+    const notification = document.createElement('div');
+    notification.classList.add('notification');
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    setTimeout(() => {
+      notification.classList.add('show');
+    }, 50);
+    setTimeout(() => {
+      notification.classList.remove('show');
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    }, 2000);
+  };
+
+  likeButtons.forEach((likeButton) => {
+    likeButton.addEventListener('click', async (event) => {
+      const card = event.target.closest('.container_card');
+      const itemId = card.id;
+
+      const response = await fetch(`${involvementApiBaseURL}/apps/${appId}/likes`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          item_id: itemId,
+        }),
+      });
+
+      if (response.ok) {
+        // Update the likes count on the screen
+        const likesSpan = card.querySelector('.likes-container span');
+        const currentLikes = parseInt(likesSpan.textContent.split(' ')[0], 10);
+        likesSpan.textContent = `${currentLikes + 1} Likes`;
+
+        // Change the heart icon color to red and show the notification
+        event.target.style.stroke = 'red';
+        showNotification('Like added!');
+
+        // Revert the heart icon color back to the original after 2 seconds
+        setTimeout(() => {
+          event.target.style.stroke = 'currentColor';
+        }, 2000);
+      }
     });
-
-    if (response.ok) {
-      const appId = await response.text();
-      return appId;
-    }
-
-    throw new Error('Error creating app');
-  } catch (error) {
-    // console.error('Error creating app:', error);
-    return null;
-  }
+  });
 }
 
 async function main() {
-  const appId = await createApp();
+  const appId = 'p01X0Mr4syDGinD4IhgC';
 
-  if (appId) {
-    const showIds = Array.from({ length: 21 }, (_, index) => index + 1);
-    const cardIndices = Array.from({ length: 21 }, (_, index) => `card${index + 1}`);
+  const showIds = Array.from({ length: 21 }, (_, index) => index + 1);
+  const cardIndices = Array.from({ length: 21 }, (_, index) => `card${index + 1}`);
 
-    await Promise.all(
-      showIds.map(async (showId, index) => {
-        const cardIndex = cardIndices[index];
-        await fetchAndUpdateCard(showId, cardIndex);
-      }),
-    );
+  await Promise.all(
+    showIds.map(async (showId, index) => {
+      const cardIndex = cardIndices[index];
+      await fetchAndUpdateCard(showId, cardIndex);
+    }),
+  );
 
-    const likesData = await fetchLikes(appId);
-    updateLikesCount(likesData);
-    initializePopupListeners(shows);
-  } else {
-    // console.error('Unable to obtain app_id');
-  }
+  const likesData = await fetchLikes(appId);
+  updateLikesCount(likesData);
+  attachLikeButtonListener();
+  initializePopupListeners(shows);
 }
 
 main();
-
-export default main;
