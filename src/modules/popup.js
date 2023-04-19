@@ -1,5 +1,6 @@
 import fetchComments from './displayComment.js';
 import addComment from './addComment.js';
+import commentCounter from './commentCounter.js';
 
 export default function initializePopupListeners(shows) {
   const commentBtn = document.querySelectorAll('.card-comment');
@@ -15,15 +16,16 @@ export default function initializePopupListeners(shows) {
           <div class="imgContainer">
             <img class="commentImg" src="${showData.image.original}" alt="Comment Image"><span class="close-btn">&#x2715;</span>
           </div>
-          <h3 id="commentTitle">${showData.name}</h3>
+          <<h3 id="commentTitle">${showData.name}</h3>
           <div id="commentDetails">
             <p>Language: ${showData.language}</p>
             <p>Runtime: ${showData.runtime}</p>
             <p>Type: ${showData.type}</p>
             <p>Status: ${showData.status}</p>
+            
           </div>
           <div id="commentSection">
-            <h3 id="comments" class="comment-text">Comments</h3>
+            <div id="comments" class="comment-text"><p id="commentCounter">Comments: (<span id="commentCount"></span>)</p></div>
             <p class="comment-text comments"></p>
           </div>
         </div>`;
@@ -40,6 +42,13 @@ export default function initializePopupListeners(shows) {
 
       // fetch and display the existing comments for the show
       fetchComments(showData.id);
+
+      // get the comment count for the show and display it in the popup
+      const commentCountElem = document.getElementById('commentCount');
+      const commentCount = commentCounter.getCommentCount(showData.id);
+      commentCount.then((commentCount) => {
+        commentCountElem.innerHTML = commentCount > 0 ? commentCount : '0';
+      });
     });
   });
 }
