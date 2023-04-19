@@ -1,5 +1,6 @@
 import './style.css';
 import initializePopupListeners from './modules/popup.js';
+import countMovies from './modules/counter.js';
 
 const involvementApiBaseURL = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi';
 
@@ -152,6 +153,12 @@ function attachLikeButtonListener() {
   });
 }
 
+function updateMovieCount() {
+  const movieCountElement = document.querySelector('.movie-count');
+  const movieCount = countMovies();
+  movieCountElement.textContent = `(${movieCount})`;
+}
+
 async function main() {
   const appId = 'p01X0Mr4syDGinD4IhgC';
 
@@ -169,6 +176,7 @@ async function main() {
   updateLikesCount(likesData);
   attachLikeButtonListener();
   initializePopupListeners(shows);
+  updateMovieCount();
 }
 
 main();
