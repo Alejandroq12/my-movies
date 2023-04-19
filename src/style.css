@@ -219,6 +219,27 @@ form {
   width: 20rem;
   gap: 1rem;
   margin-left: 11rem;
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 25px;
+  background-color: var(--light-blue);
+  color: var(--white);
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  opacity: 0;
+  transform: translateY(-50%);
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.notification.show {
+  opacity: 0.9;
+  transform: translateY(0);
 }
 
 @media screen and (max-width: 768px) {
