@@ -8,15 +8,14 @@ const addComment = async (showId, name, comment) => {
       'Content-Type': 'application/json',
     },
   });
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes(application/json)) {
-    const data = await response.json();
-    return data;
-  } else {
-  return {message:'added successfully'}
+  const textResponse = await response.text();
+  let data;
+  try {
+    data = JSON.parse(textResponse);
+  } catch (error) {
+    data = { message: textResponse };
   }
-//   const data = await response.json();
-//   return data;
+  return data;
 };
 
 function createCommentForm(showId) {
