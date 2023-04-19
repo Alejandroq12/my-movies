@@ -1,15 +1,22 @@
 import fetchComments from './displayComment.js';
 
-const addComment = async (comment) => {
+const addComment = async (showId, name, comment) => {
   const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/p01X0Mr4syDGinD4IhgC/comments', {
     method: 'POST',
-    body: JSON.stringify({ comment }),
+    body: JSON.stringify({ item_id: showId, username: name, comment }),
     headers: {
       'Content-Type': 'application/json',
     },
   });
-  const data = await response.json();
-  return data;
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes(application/json)) {
+    const data = await response.json();
+    return data;
+  } else {
+  return {message:'added successfully'}
+  }
+//   const data = await response.json();
+//   return data;
 };
 
 function createCommentForm(showId) {
