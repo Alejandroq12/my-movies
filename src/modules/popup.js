@@ -47,7 +47,7 @@ export default function initializePopupListeners(shows) {
       const commentCountElem = document.getElementById('commentCount');
       const commentCount = commentCounter.getCommentCount(showData.id);
       commentCount.then((commentCount) => {
-        commentCountElem.innerHTML = commentCount;
+        commentCountElem.innerHTML = commentCount > 0 ? commentCount : '0';
       });
     });
   });
