@@ -46,8 +46,16 @@ function createCommentForm(showId) {
       const commentCount = await commentCounter.getCommentCount(showId); // Add await here
       commentCountElem.innerHTML = commentCount > 0 ? commentCount : '0';
     } catch (error) {
-      console.error('Error adding comment:', error);
+      const errorMessage = 'There was an error while counting comments.';
+      // Display error message to the user instead of logging to console
+      const errorContainer = document.createElement('div');
+      errorContainer.classList.add('error-message');
+      errorContainer.textContent = errorMessage;
+      const commentSection = document.getElementById('commentSection');
+      commentSection.appendChild(errorContainer);
+      return 0; // Return a default value if there's an error
     }
+    return 0;
   });
 
   return form;
