@@ -1,4 +1,5 @@
 import fetchComments from './displayComment.js';
+import addComment from './addComment.js';
 
 export default function initializePopupListeners(shows) {
   const commentBtn = document.querySelectorAll('.card-comment');
@@ -10,7 +11,7 @@ export default function initializePopupListeners(shows) {
       popMenu.classList.add('act');
       const showData = shows[index];
       popMenu.innerHTML = `
-        <section id="commentPopup">
+        <div id="commentPopup">
           <div class="imgContainer">
             <img class="commentImg" src="${showData.image.original}" alt="Comment Image"><span class="close-btn">&#x2715;</span>
           </div>
@@ -21,16 +22,23 @@ export default function initializePopupListeners(shows) {
             <p>Type: ${showData.type}</p>
             <p>Status: ${showData.status}</p>
           </div>
-          <div>
+          <div id="commentSection">
             <h3 id="comments" class="comment-text">Comments</h3>
             <p class="comment-text comments"></p>
           </div>
-        </section>`;
+        </div>`;
       const popClose = document.querySelector('.close-btn');
       popClose.addEventListener('click', () => {
         popMenu.classList.remove('act');
         document.body.classList.remove('no-scroll');
       });
+
+      // create the comment form and add it to the popup
+      const commentForm = addComment.createCommentForm(showData.id);
+      const commentSection = document.getElementById('commentSection');
+      commentSection.appendChild(commentForm);
+
+      // fetch and display the existing comments for the show
       fetchComments(showData.id);
     });
   });

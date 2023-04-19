@@ -213,6 +213,14 @@ footer {
   cursor: pointer;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  gap: 1rem;
+  margin-left: 11rem;
+}
+
 @media screen and (max-width: 768px) {
   .container {
     grid-template-columns: repeat(2, 1fr);
