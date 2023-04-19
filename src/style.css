@@ -80,6 +80,7 @@ nav {
   border-radius: 16px;
   overflow: auto;
   padding: 1rem;
+  background-color: white;
 }
 
 .imgContainer {
@@ -110,10 +111,16 @@ nav {
   font-size: 2rem;
 }
 
+.comment-text {
+  text-align: center;
+}
+
 .close-btn {
   position: absolute;
-  top: 45px;
+  top: 70px;
   right: 121px;
+  font-size: 2rem;
+  font-weight: 900;
 }
 
 .close-btn:hover {
