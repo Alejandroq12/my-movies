@@ -1,6 +1,7 @@
 import './style.css';
 import initializePopupListeners from './modules/popup.js';
 
+const involvementApiBaseURL = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi';
 
 function createCardComponent(id, imgSrc = '', text = '', likes = 0) {
   return `
