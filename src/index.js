@@ -50,7 +50,8 @@ async function fetchTVShow(showId) {
   }
 }
 
-export const shows = [];
+const shows = [];
+export default shows;
 
 async function fetchAndUpdateCard(showId, cardIndex) {
   const fetchValidShowData = async (currentShowId) => {
@@ -97,46 +98,25 @@ function updateLikesCount(likesData) {
   });
 }
 
-async function createApp() {
-  try {
-    const response = await fetch(`${involvementApiBaseURL}/apps/`, {
-      method: 'POST',
-    });
 
-    if (response.ok) {
-      const appId = await response.text();
-      return appId;
-    }
-
-    throw new Error('Error creating app');
-  } catch (error) {
-    // console.error('Error creating app:', error);
-    return null;
-  }
-}
 
 async function main() {
-  const appId = await createApp();
+  const appId = 'p01X0Mr4syDGinD4IhgC';
 
-  if (appId) {
-    const showIds = Array.from({ length: 21 }, (_, index) => index + 1);
-    const cardIndices = Array.from({ length: 21 }, (_, index) => `card${index + 1}`);
+  const showIds = Array.from({ length: 21 }, (_, index) => index + 1);
+  const cardIndices = Array.from({ length: 21 }, (_, index) => `card${index + 1}`);
 
-    await Promise.all(
-      showIds.map(async (showId, index) => {
-        const cardIndex = cardIndices[index];
-        await fetchAndUpdateCard(showId, cardIndex);
-      }),
-    );
+  await Promise.all(
+    showIds.map(async (showId, index) => {
+      const cardIndex = cardIndices[index];
+      await fetchAndUpdateCard(showId, cardIndex);
+    }),
+  );
 
-    const likesData = await fetchLikes(appId);
-    updateLikesCount(likesData);
-    initializePopupListeners(shows);
-  } else {
-    // console.error('Unable to obtain app_id');
-  }
+  const likesData = await fetchLikes(appId);
+  updateLikesCount(likesData);
+  attachLikeButtonListener();
+  initializePopupListeners(shows);
 }
 
 main();
-
-export default main;
