@@ -70,7 +70,16 @@ async function fetchAndUpdateCard(showId, cardIndex) {
   cardContainer.insertAdjacentHTML('beforeend', cardComponent);
 }
 
-
+async function fetchLikes(appId) {
+  try {
+    const response = await fetch(`${involvementApiBaseURL}/apps/${appId}/likes`);
+    const likesData = await response.json();
+    return likesData;
+  } catch (error) {
+    // console.error('Error fetching likes:', error);
+    return [];
+  }
+}
 
 
 
