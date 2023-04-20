@@ -33,4 +33,4 @@ const createCardComponent = (id, imgSrc = '', text = '', likes = 0) => `
         </div>
       `;
 
-export default createCardComponent;
+  export default createCardComponent;
