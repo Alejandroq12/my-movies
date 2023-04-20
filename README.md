@@ -176,9 +176,9 @@ You can deploy this project using: GitHub Pages,
 
 👤 **Salman Ahmad Khan**
 
-- GitHub: [@githubhandle](https://github.com/fpsapc)
-- Twitter: [@twitterhandle](https://twitter.com/salman-ahmadkhan1987)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/salman-ahmad1987 )
+- GitHub: [@fpsapc](https://github.com/fpsapc)
+- Twitter: [@salman-ahmadkhan1987](https://twitter.com/salman-ahmadkhan1987)
+- LinkedIn: [@salman-ahmad1987](https://linkedin.com/in/salman-ahmad1987 )
 
 👤 **Julio Quezada**
 
