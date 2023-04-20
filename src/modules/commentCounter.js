@@ -5,7 +5,7 @@ const commentCounter = {
       const data = await response.json();
       return data.length;
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
     return 0;
   },
