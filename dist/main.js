@@ -116,7 +116,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_popup_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/popup.js */ \"./src/modules/popup.js\");\n/* harmony import */ var _modules_counter_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/counter.js */ \"./src/modules/counter.js\");\n\n\n\n\nconst involvementApiBaseURL = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi';\n\nfunction createCardComponent(id, imgSrc = '', text = '', likes = 0) {\n  return `\n  <div class=\"container_card\" id=\"${id}\">\n        <img src=\"${imgSrc}\" alt=\"Image of the movie\" class=\"card-img\" />\n        <div class=\"card-content\">\n          <p class=\"card-text\">${text}</p>\n          <div class=\"likes-container\">\n          <svg\n              xmlns=\"http://www.w3.org/2000/svg\"\n              width=\"24\"\n              height=\"24\"\n              viewBox=\"0 0 24 24\"\n              class=\"card-likes\"\n              fill=\"none\"\n              stroke=\"currentColor\"\n              stroke-width=\"2\"\n              stroke-linecap=\"round\"\n              stroke-linejoin=\"round\"\n            >\n              <path\n                d=\"M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z\"\n              ></path>\n            </svg>\n            <span>${likes} Likes</span>\n          </div>\n        </div>\n        <button\n          class=\"card-comment\"\n          aria-label=\"Comment on this movie\"\n          type=\"button\"\n        >\n          Comment\n        </button>\n      </div>\n    `;\n}\n\nasync function fetchTVShow(showId) {\n  try {\n    const response = await fetch(`https://api.tvmaze.com/shows/${showId}`);\n    const showData = await response.json();\n    return showData;\n  } catch (error) {\n    return null;\n  }\n}\n\nconst shows = [];\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (shows);\n\nasync function fetchAndUpdateCard(showId, cardIndex) {\n  const fetchValidShowData = async (currentShowId) => {\n    const show = await fetchTVShow(currentShowId);\n    if (show && show.name && show.image && show.image.original) {\n      return show;\n    }\n    return fetchValidShowData(currentShowId + 1);\n  };\n\n  const showData = await fetchValidShowData(showId);\n\n  shows.push(showData);\n\n  const cardContainer = document.querySelector('.container');\n  const cardComponent = createCardComponent(cardIndex, showData.image.original, showData.name);\n  cardContainer.insertAdjacentHTML('beforeend', cardComponent);\n}\n\nasync function fetchLikes(appId) {\n  try {\n    const response = await fetch(`${involvementApiBaseURL}/apps/${appId}/likes`);\n    const likesData = await response.json();\n    return likesData;\n  } catch (error) {\n    // console.error('Error fetching likes:', error);\n    return [];\n  }\n}\n\nfunction updateLikesCount(likesData) {\n  const likeElements = document.querySelectorAll('.likes-container span');\n\n  likeElements.forEach((likeElement) => {\n    const itemId = likeElement.parentElement.parentElement.parentElement.id;\n\n    const foundItem = likesData.find((item) => item.item_id === itemId);\n\n    if (foundItem) {\n      likeElement.textContent = `${foundItem.likes} Likes`;\n    } else {\n      likeElement.textContent = '0 Likes';\n    }\n  });\n}\n\nfunction attachLikeButtonListener() {\n  const appId = 'p01X0Mr4syDGinD4IhgC';\n  const likeButtons = document.querySelectorAll('.card-likes');\n\n  const showNotification = (message) => {\n    const notification = document.createElement('div');\n    notification.classList.add('notification');\n    notification.textContent = message;\n    document.body.appendChild(notification);\n    setTimeout(() => {\n      notification.classList.add('show');\n    }, 50);\n    setTimeout(() => {\n      notification.classList.remove('show');\n      setTimeout(() => {\n        notification.remove();\n      }, 300);\n    }, 2000);\n  };\n\n  likeButtons.forEach((likeButton) => {\n    likeButton.addEventListener('click', async (event) => {\n      const card = event.target.closest('.container_card');\n      const itemId = card.id;\n\n      const response = await fetch(`${involvementApiBaseURL}/apps/${appId}/likes`, {\n        method: 'POST',\n        headers: {\n          'Content-Type': 'application/json',\n        },\n        body: JSON.stringify({\n          item_id: itemId,\n        }),\n      });\n\n      if (response.ok) {\n        // Update the likes count on the screen\n        const likesSpan = card.querySelector('.likes-container span');\n        const currentLikes = parseInt(likesSpan.textContent.split(' ')[0], 10);\n        likesSpan.textContent = `${currentLikes + 1} Likes`;\n\n        // Change the heart icon color to red and show the notification\n        event.target.style.stroke = 'red';\n        showNotification('Like added!');\n\n        // Revert the heart icon color back to the original after 2 seconds\n        setTimeout(() => {\n          event.target.style.stroke = 'currentColor';\n        }, 2000);\n      }\n    });\n  });\n}\n\nfunction updateMovieCount() {\n  const movieCountElement = document.querySelector('.movie-count');\n  const movieCount = (0,_modules_counter_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])();\n  movieCountElement.textContent = `(${movieCount})`;\n}\n\nasync function main() {\n  const appId = 'p01X0Mr4syDGinD4IhgC';\n\n  const showIds = Array.from({ length: 100 }, (_, index) => index + 1);\n  const cardIndices = Array.from({ length: 100 }, (_, index) => `card${index + 1}`);\n\n  await Promise.all(\n    showIds.map(async (showId, index) => {\n      const cardIndex = cardIndices[index];\n      await fetchAndUpdateCard(showId, cardIndex);\n    }),\n  );\n\n  const likesData = await fetchLikes(appId);\n  updateLikesCount(likesData);\n  attachLikeButtonListener();\n  (0,_modules_popup_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(shows);\n  updateMovieCount();\n}\n\nmain();\n\n\n//# sourceURL=webpack://webpack-installation/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_popup_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/popup.js */ \"./src/modules/popup.js\");\n/* harmony import */ var _modules_fetchAndUpdateCard_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/fetchAndUpdateCard.js */ \"./src/modules/fetchAndUpdateCard.js\");\n/* harmony import */ var _modules_fetchLikes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/fetchLikes.js */ \"./src/modules/fetchLikes.js\");\n/* harmony import */ var _modules_updateLikesCount_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/updateLikesCount.js */ \"./src/modules/updateLikesCount.js\");\n/* harmony import */ var _modules_attachLikeButtonListener_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/attachLikeButtonListener.js */ \"./src/modules/attachLikeButtonListener.js\");\n/* harmony import */ var _modules_updateMovieCount_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/updateMovieCount.js */ \"./src/modules/updateMovieCount.js\");\n\n\n\n\n\n\n\n\nconst shows = [];\n\nasync function main() {\n  const appId = 'p01X0Mr4syDGinD4IhgC';\n\n  const showIds = Array.from({ length: 100 }, (_, index) => index + 1);\n  const cardIndices = Array.from({ length: 100 }, (_, index) => `card${index + 1}`);\n\n  await Promise.all(\n    showIds.map(async (showId, index) => {\n      const cardIndex = cardIndices[index];\n      await (0,_modules_fetchAndUpdateCard_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(showId, cardIndex, shows);\n    }),\n  );\n\n  const likesData = await (0,_modules_fetchLikes_js__WEBPACK_IMPORTED_MODULE_3__[\"default\"])(appId);\n  (0,_modules_updateLikesCount_js__WEBPACK_IMPORTED_MODULE_4__[\"default\"])(likesData);\n  (0,_modules_attachLikeButtonListener_js__WEBPACK_IMPORTED_MODULE_5__[\"default\"])();\n  (0,_modules_popup_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(shows);\n  (0,_modules_updateMovieCount_js__WEBPACK_IMPORTED_MODULE_6__[\"default\"])();\n}\n\nmain();\n\n\n//# sourceURL=webpack://webpack-installation/./src/index.js?");
 
 /***/ }),
 
@@ -130,6 +130,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./src/modules/attachLikeButtonListener.js":
+/*!*************************************************!*\
+  !*** ./src/modules/attachLikeButtonListener.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _showNotification_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./showNotification.js */ \"./src/modules/showNotification.js\");\n\n\nconst involvementApiBaseURL = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi';\n\nconst attachLikeButtonListener = () => {\n  const appId = 'p01X0Mr4syDGinD4IhgC';\n  const likeButtons = document.querySelectorAll('.card-likes');\n\n  likeButtons.forEach((likeButton) => {\n    likeButton.addEventListener('click', async (event) => {\n      const card = event.target.closest('.container_card');\n      const itemId = card.id;\n\n      const response = await fetch(`${involvementApiBaseURL}/apps/${appId}/likes`, {\n        method: 'POST',\n        headers: {\n          'Content-Type': 'application/json',\n        },\n        body: JSON.stringify({\n          item_id: itemId,\n        }),\n      });\n\n      if (response.ok) {\n        // Update the likes count on the screen\n        const likesSpan = card.querySelector('.likes-container span');\n        const currentLikes = parseInt(likesSpan.textContent.split(' ')[0], 10);\n        likesSpan.textContent = `${currentLikes + 1} Likes`;\n\n        // Change the heart icon color to red and show the notification\n        event.target.style.stroke = 'red';\n        (0,_showNotification_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('Like added!');\n\n        // Revert the heart icon color back to the original after 2 seconds\n        setTimeout(() => {\n          event.target.style.stroke = 'currentColor';\n        }, 2000);\n      }\n    });\n  });\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (attachLikeButtonListener);\n\n\n//# sourceURL=webpack://webpack-installation/./src/modules/attachLikeButtonListener.js?");
+
+/***/ }),
+
 /***/ "./src/modules/commentCounter.js":
 /*!***************************************!*\
   !*** ./src/modules/commentCounter.js ***!
@@ -140,13 +150,23 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./src/modules/counter.js":
-/*!********************************!*\
-  !*** ./src/modules/counter.js ***!
-  \********************************/
+/***/ "./src/modules/counterMovies.js":
+/*!**************************************!*\
+  !*** ./src/modules/counterMovies.js ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nfunction countMovies() {\n  const movieCards = document.querySelectorAll('.container_card');\n  return movieCards.length;\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (countMovies);\n\n//# sourceURL=webpack://webpack-installation/./src/modules/counter.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nfunction countMovies() {\n  const movieCards = document.querySelectorAll('.container_card');\n  return movieCards.length;\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (countMovies);\n\n//# sourceURL=webpack://webpack-installation/./src/modules/counterMovies.js?");
+
+/***/ }),
+
+/***/ "./src/modules/createCardComponent.js":
+/*!********************************************!*\
+  !*** ./src/modules/createCardComponent.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst createCardComponent = (id, imgSrc = '', text = '', likes = 0) => `\n    <div class=\"container_card\" id=\"${id}\">\n          <img src=\"${imgSrc}\" alt=\"Image of the movie\" class=\"card-img\" />\n          <div class=\"card-content\">\n            <p class=\"card-text\">${text}</p>\n            <div class=\"likes-container\">\n            <svg\n                xmlns=\"http://www.w3.org/2000/svg\"\n                width=\"24\"\n                height=\"24\"\n                viewBox=\"0 0 24 24\"\n                class=\"card-likes\"\n                fill=\"none\"\n                stroke=\"currentColor\"\n                stroke-width=\"2\"\n                stroke-linecap=\"round\"\n                stroke-linejoin=\"round\"\n              >\n                <path\n                  d=\"M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z\"\n                ></path>\n              </svg>\n              <span>${likes} Likes</span>\n            </div>\n          </div>\n          <button\n            class=\"card-comment\"\n            aria-label=\"Comment on this movie\"\n            type=\"button\"\n          >\n            Comment\n          </button>\n        </div>\n      `;\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createCardComponent);\n\n\n//# sourceURL=webpack://webpack-installation/./src/modules/createCardComponent.js?");
 
 /***/ }),
 
@@ -160,6 +180,36 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./src/modules/fetchAndUpdateCard.js":
+/*!*******************************************!*\
+  !*** ./src/modules/fetchAndUpdateCard.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _fetchTVShow_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fetchTVShow.js */ \"./src/modules/fetchTVShow.js\");\n/* harmony import */ var _createCardComponent_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createCardComponent.js */ \"./src/modules/createCardComponent.js\");\n\n\n\nconst fetchAndUpdateCard = async (showId, cardIndex, shows) => {\n  const fetchValidShowData = async (currentShowId) => {\n    const show = await (0,_fetchTVShow_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(currentShowId);\n    if (show && show.name && show.image && show.image.original) {\n      return show;\n    }\n    return fetchValidShowData(currentShowId + 1);\n  };\n\n  const showData = await fetchValidShowData(showId);\n\n  shows.push(showData);\n\n  const cardContainer = document.querySelector('.container');\n  const cardComponent = (0,_createCardComponent_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(cardIndex, showData.image.original, showData.name);\n  cardContainer.insertAdjacentHTML('beforeend', cardComponent);\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (fetchAndUpdateCard);\n\n\n//# sourceURL=webpack://webpack-installation/./src/modules/fetchAndUpdateCard.js?");
+
+/***/ }),
+
+/***/ "./src/modules/fetchLikes.js":
+/*!***********************************!*\
+  !*** ./src/modules/fetchLikes.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst involvementApiBaseURL = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi';\n\nconst fetchLikes = async (appId) => {\n  try {\n    const response = await fetch(`${involvementApiBaseURL}/apps/${appId}/likes`);\n    const likesData = await response.json();\n    return likesData;\n  } catch (error) {\n    return [];\n  }\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (fetchLikes);\n\n\n//# sourceURL=webpack://webpack-installation/./src/modules/fetchLikes.js?");
+
+/***/ }),
+
+/***/ "./src/modules/fetchTVShow.js":
+/*!************************************!*\
+  !*** ./src/modules/fetchTVShow.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst fetchTVShow = async (showId) => {\n  try {\n    const response = await fetch(`https://api.tvmaze.com/shows/${showId}`);\n    const showData = await response.json();\n    return showData;\n  } catch (error) {\n    return null;\n  }\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (fetchTVShow);\n\n\n//# sourceURL=webpack://webpack-installation/./src/modules/fetchTVShow.js?");
+
+/***/ }),
+
 /***/ "./src/modules/popup.js":
 /*!******************************!*\
   !*** ./src/modules/popup.js ***!
@@ -167,6 +217,36 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ initializePopupListeners)\n/* harmony export */ });\n/* harmony import */ var _displayComment_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./displayComment.js */ \"./src/modules/displayComment.js\");\n/* harmony import */ var _addComment_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addComment.js */ \"./src/modules/addComment.js\");\n/* harmony import */ var _commentCounter_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./commentCounter.js */ \"./src/modules/commentCounter.js\");\n\n\n\n\nfunction initializePopupListeners(shows) {\n  const commentBtn = document.querySelectorAll('.card-comment');\n  const popMenu = document.querySelector('.seePopup');\n\n  commentBtn.forEach((btn, index) => {\n    btn.addEventListener('click', () => {\n      document.body.classList.toggle('no-scroll');\n      popMenu.classList.add('act');\n      const showData = shows[index];\n      popMenu.innerHTML = `\n        <div id=\"commentPopup\">\n          <div class=\"imgContainer\">\n            <img class=\"commentImg\" src=\"${showData.image.original}\" alt=\"Comment Image\"><span class=\"close-btn\">&#x2715;</span>\n          </div>\n          <<h3 id=\"commentTitle\">${showData.name}</h3>\n          <div id=\"commentDetails\">\n            <p>Language: ${showData.language}</p>\n            <p>Runtime: ${showData.runtime}</p>\n            <p>Type: ${showData.type}</p>\n            <p>Status: ${showData.status}</p>\n            \n          </div>\n          <div id=\"commentSection\">\n            <div id=\"comments\" class=\"comment-text\"><p id=\"commentCounter\">Comments: (<span id=\"commentCount\"></span>)</p></div>\n            <p class=\"comment-text comments\"></p>\n          </div>\n        </div>`;\n      const popClose = document.querySelector('.close-btn');\n      popClose.addEventListener('click', () => {\n        popMenu.classList.remove('act');\n        document.body.classList.remove('no-scroll');\n      });\n\n      // create the comment form and add it to the popup\n      const commentForm = _addComment_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"].createCommentForm(showData.id);\n      const commentSection = document.getElementById('commentSection');\n      commentSection.appendChild(commentForm);\n\n      // fetch and display the existing comments for the show\n      (0,_displayComment_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(showData.id);\n\n      // get the comment count for the show and display it in the popup\n      const commentCountElem = document.getElementById('commentCount');\n      const commentCount = _commentCounter_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"].getCommentCount(showData.id);\n      commentCount.then((commentCount) => {\n        commentCountElem.innerHTML = commentCount > 0 ? commentCount : '0';\n      });\n    });\n  });\n}\n\n\n//# sourceURL=webpack://webpack-installation/./src/modules/popup.js?");
+
+/***/ }),
+
+/***/ "./src/modules/showNotification.js":
+/*!*****************************************!*\
+  !*** ./src/modules/showNotification.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst showNotification = (message) => {\n  const notification = document.createElement('div');\n  notification.classList.add('notification');\n  notification.textContent = message;\n  document.body.appendChild(notification);\n  setTimeout(() => {\n    notification.classList.add('show');\n  }, 50);\n  setTimeout(() => {\n    notification.classList.remove('show');\n    setTimeout(() => {\n      notification.remove();\n    }, 300);\n  }, 2000);\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (showNotification);\n\n\n//# sourceURL=webpack://webpack-installation/./src/modules/showNotification.js?");
+
+/***/ }),
+
+/***/ "./src/modules/updateLikesCount.js":
+/*!*****************************************!*\
+  !*** ./src/modules/updateLikesCount.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst updateLikesCount = (likesData) => {\n  const likeElements = document.querySelectorAll('.likes-container span');\n\n  likeElements.forEach((likeElement) => {\n    const itemId = likeElement.parentElement.parentElement.parentElement.id;\n\n    const foundItem = likesData.find((item) => item.item_id === itemId);\n\n    if (foundItem) {\n      likeElement.textContent = `${foundItem.likes} Likes`;\n    } else {\n      likeElement.textContent = '0 Likes';\n    }\n  });\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (updateLikesCount);\n\n\n//# sourceURL=webpack://webpack-installation/./src/modules/updateLikesCount.js?");
+
+/***/ }),
+
+/***/ "./src/modules/updateMovieCount.js":
+/*!*****************************************!*\
+  !*** ./src/modules/updateMovieCount.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _counterMovies_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./counterMovies.js */ \"./src/modules/counterMovies.js\");\n\n\nconst updateMovieCount = () => {\n  const movieCountElement = document.querySelector('.movie-count');\n  const movieCount = (0,_counterMovies_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\n  movieCountElement.textContent = `(${movieCount})`;\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (updateMovieCount);\n\n\n//# sourceURL=webpack://webpack-installation/./src/modules/updateMovieCount.js?");
 
 /***/ })
 
