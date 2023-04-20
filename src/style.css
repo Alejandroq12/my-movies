@@ -124,7 +124,11 @@ nav {
 
 .card-likes {
   display: block;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem auto;
+}
+
+#heart {
+  cursor: pointer;
 }
 
 .card-comment {
@@ -278,7 +282,7 @@ form {
 
 .notification {
   position: fixed;
-  top: 20px;
+  top: 30px;
   right: 20px;
   padding: 15px 25px;
   background-color: var(--light-blue);

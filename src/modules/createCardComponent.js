@@ -4,10 +4,10 @@ const createCardComponent = (id, imgSrc = '', text = '', likes = 0) => `
           <div class="card-content">
             <p class="card-text">${text}</p>
             <div class="likes-container">
-            <svg
+            <svg id="heart"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="40"
+                height="40"
                 viewBox="0 0 24 24"
                 class="card-likes"
                 fill="none"
