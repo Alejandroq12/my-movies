@@ -1,4 +1,4 @@
-import countMovies from '../modules/counter.js';
+import countMovies from '../modules/counterMovies.js';
 
 describe('countMovies', () => {
   beforeEach(() => {
