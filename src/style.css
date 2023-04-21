@@ -434,4 +434,26 @@ footer {
   .nav-links {
     justify-content: flex-start;
   }
+
+  .popcorn:nth-child(1) {
+    display: none;
+  }
+  
+  .popcorn:nth-child(2) {
+    display: none;
+  }
+  
+  .popcorn:nth-child(3) {
+    left: 50%;
+    animation-duration: 90s;
+  }
+  
+  .popcorn:nth-child(4) {
+    left: 70%;
+    animation-duration: 90s;
+  }
+  
+  .popcorn:nth-child(5) {
+    display: none;
+  }
 }
