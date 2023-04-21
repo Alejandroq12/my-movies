@@ -110,6 +110,47 @@ nav {
   grid-gap: 1rem;
   padding: 1rem;
   border: 1px solid var(--black);
+  position: relative;
+}
+
+.popcorn {
+  position: absolute;
+  font-size: 80px;
+  animation: popcornFall linear infinite;
+}
+
+.popcorn:nth-child(1) {
+  left: 10%;
+  animation-duration: 90s;
+}
+
+.popcorn:nth-child(2) {
+  left: 30%;
+  animation-duration: 90s;
+}
+
+.popcorn:nth-child(3) {
+  left: 50%;
+  animation-duration: 90s;
+}
+
+.popcorn:nth-child(4) {
+  left: 70%;
+  animation-duration: 90s;
+}
+
+.popcorn:nth-child(5) {
+  left: 90%;
+  animation-duration: 90s;
+}
+
+@keyframes popcornFall {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(3000%);
+  }
 }
 
 .container_card {
