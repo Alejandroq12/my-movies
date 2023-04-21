@@ -153,29 +153,37 @@ nav {
   gap: 2rem;
   width: 90%;
   height: 90%;
-  border: 1px solid #dfe1e6;
+  border: 1px solid var(--gray);
   border-radius: 16px;
   overflow: auto;
   padding: 1rem;
-  background-color: white;
+  background-color: var(--white);
   position: relative;
+  transition: all 0.5s ease;
 }
 
 .imgContainer {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  align-items: center;
+  margin-top: 0;
+  height: 600px;
 }
 
 .commentImg {
-  height: 40rem;
-  width: 30rem;
-  border: 1px solid var(--black);
+  height: 80%;
+  width: 80%;
   border-radius: 2rem;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+
+.commentImg:hover {
+  transform: scale(1.05);
 }
 
 #commentTitle {
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: center;
 }
 
@@ -188,23 +196,23 @@ nav {
 }
 
 #commentDetails p {
-  font-size: 2rem;
+  font-size: 0.8rem;
 }
 
 #commentSection {
-  width: 36rem;
+  width: 90%;
   margin: auto;
 }
 
 .comment-text {
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 0.8rem;
 }
 
 #commentCounter {
   font-size: 2rem;
   font-weight: bold;
-  margin-top: 2rem;
+  margin-top: 0.4rem;
 }
 
 .close-btn {
@@ -213,10 +221,12 @@ nav {
   right: 10px;
   font-size: 2rem;
   font-weight: 900;
+  cursor: pointer;
+  transition: color 0.3s;
 }
 
 .close-btn:hover {
-  cursor: pointer;
+  color: #07c;
 }
 
 .seePopup {
@@ -245,7 +255,7 @@ nav {
 form {
   display: flex;
   flex-direction: column;
-  width: 20rem;
+  width: 90%;
   gap: 1rem;
   margin: 2rem auto;
 }
@@ -273,7 +283,7 @@ form {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.8s;
+  transition: all 0.3s;
 }
 
 .comment-btn:hover {
