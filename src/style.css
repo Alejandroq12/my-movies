@@ -315,6 +315,7 @@ form {
   font-size: 1.3rem;
   height: 5rem;
   border: 1px solid var(--gray);
+  resize: none;
 }
 
 #commentCount {
