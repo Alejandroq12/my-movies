@@ -19,10 +19,24 @@
   --white: #fff;
 }
 
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 body {
   font-family: 'Heebo', sans-serif;
   font-size: 16px;
-  background-color: var(--white-gray);
+  background: linear-gradient(270deg, #ff8a00, #e52d27, #9b179e, #3f4d9f, #0b5394);
+  background-size: 1000% 1000%;
+  animation: gradientBackground 30s ease infinite;
 }
 
 /* Navbar */
@@ -86,7 +100,7 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   border-radius: 8px;
@@ -166,7 +180,7 @@ nav {
   border-radius: 16px;
   overflow: auto;
   padding: 1rem;
-  background-color: var(--white);
+  background-color: var(--white-gray);
   position: relative;
   transition: all 0.5s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.8);
