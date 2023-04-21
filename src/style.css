@@ -150,6 +150,7 @@ nav {
 #commentPopup {
   display: flex;
   flex-direction: column;
+  max-width: 800px;
   gap: 2rem;
   width: 90%;
   height: 90%;
@@ -160,7 +161,16 @@ nav {
   background-color: var(--white);
   position: relative;
   transition: all 0.5s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.8);
+  perspective: 1000px;
 }
+
+#commentPopup:hover {
+  transform: rotateY(0deg) rotateX(-5deg) scale(1.03) translateY(-14px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.9);
+}
+
+
 
 .imgContainer {
   display: flex;
@@ -185,6 +195,7 @@ nav {
 #commentTitle {
   font-size: 2rem;
   text-align: center;
+  color: #07c;
 }
 
 #commentDetails {
