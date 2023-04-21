@@ -12,25 +12,27 @@
 
 # 📗 Table of Contents
 
-- [📖 About the Project](#about-project)
-  - [🛠 Built With](#built-with)
-    - [Tech Stack](#tech-stack)
-    - [Key Features](#key-features)
-    - [🚀 Live Demo](#live-demo)
-- [💻 Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Setup](#setup)
-  - [Install](#install)
-  - [Usage](#usage)
-  - [Run tests](#run-tests)
-  - [Deployment](#deployment)
-- [👥 Authors](#authors)
-- [🔭 Future Features](#future-features)
-- [🤝 Contributing](#contributing)
-- [⭐️ Show your support](#support)
-- [🙏 Acknowledgements](#acknowledgements)
-- [❓ FAQ(#faq)
-- [📝 License](#license)
+- [group-capstone-js](#group-capstone-js)
+- [📗 Table of Contents](#-table-of-contents)
+- [📖 \[JavaScript capstone project\] ](#-javascript-capstone-project-)
+  - [🛠 Built With ](#-built-with-)
+    - [Tech Stack ](#tech-stack-)
+    - [Key Features ](#key-features-)
+  - [🚀 Live Demo ](#-live-demo-)
+  - [💻 Getting Started ](#-getting-started-)
+    - [Prerequisites](#prerequisites)
+    - [Setup](#setup)
+    - [Install](#install)
+    - [Usage](#usage)
+    - [Run tests](#run-tests)
+    - [Deployment ](#deployment-)
+  - [👥 Author ](#-author-)
+  - [🔭 Future Features ](#-future-features-)
+  - [🤝 Contributing ](#-contributing-)
+  - [⭐️ Show your support ](#️-show-your-support-)
+  - [🙏 Acknowledgments ](#-acknowledgments-)
+  - [❓ FAQ ](#-faq-)
+  - [📝 License ](#-license-)
 
 <!-- PROJECT DESCRIPTION -->
 
@@ -92,7 +94,7 @@ APIs
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://alejandroq12.github.io/group-capstone-js/dist/)
+- [Live Demo Link](https://alejandroq12.github.io/my-movies/dist/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -118,7 +120,7 @@ In order to run this project you need:
 Clone this repository to your desired folder or download the Zip folder:
 
 ```
-https://github.com/Alejandroq12/group-capstone-js
+https://github.com/Alejandroq12/my-movies
 ```
 
 - Navigate to the location of the folder in your machine:
