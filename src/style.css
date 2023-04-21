@@ -91,6 +91,8 @@ nav {
   padding: 1rem;
   border-radius: 8px;
   overflow: hidden;
+  transition: all 0.5s ease;
+  perspective: 1000px;
 }
 
 .card-img {
@@ -105,6 +107,11 @@ nav {
 .container_card:hover > .card-img {
   scale: 1.04;
   cursor: pointer;
+}
+
+.container_card:hover {
+  transform: rotateY(0deg) rotateX(-3deg) scale(1.03);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.8);
 }
 
 .card-content {
@@ -145,6 +152,7 @@ nav {
 .card-comment:hover {
   background-color: rgba(4, 144, 29, 0.9);
 }
+
 
 /* popup section */
 #commentPopup {
