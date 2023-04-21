@@ -16,7 +16,7 @@ export default function initializePopupListeners(shows) {
           <div class="imgContainer">
             <img class="commentImg" src="${showData.image.original}" alt="Comment Image"><span class="close-btn">&#x2715;</span>
           </div>
-          <<h3 id="commentTitle">${showData.name}</h3>
+          <h3 id="commentTitle">${showData.name}</h3>
           <div id="commentDetails">
             <p>Language: ${showData.language}</p>
             <p>Runtime: ${showData.runtime}</p>
