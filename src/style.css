@@ -22,13 +22,13 @@
 body {
   font-family: 'Heebo', sans-serif;
   font-size: 16px;
-  background-color: var(--white-gray);
+  background: transparent;
 }
 
 /* Navbar */
 header {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   border: 1px solid var(--black);
@@ -38,11 +38,15 @@ header {
   display: flex;
   align-items: center;
   margin-left: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.8s;
 }
 
-.logo {
-  width: 100px;
-  height: auto;
+.logo-container:hover {
+  scale: 1.1;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 nav {
@@ -62,10 +66,12 @@ nav {
   color: var(--black);
   text-decoration: none;
   margin-left: 2rem;
+  transition: all 0.8s;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .nav-links a:hover {
-  font-weight: 800;
   text-decoration: underline;
 }
 
@@ -168,8 +174,8 @@ nav {
 }
 
 .commentImg {
-  height: 40rem;
-  width: 30rem;
+  height: 100%;
+  width: 50%;
   border: 1px solid var(--black);
   border-radius: 2rem;
 }
@@ -192,7 +198,7 @@ nav {
 }
 
 #commentSection {
-  width: 36rem;
+  width: 100%;
   margin: auto;
 }
 
@@ -210,7 +216,7 @@ nav {
 .close-btn {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 20px;
   font-size: 2rem;
   font-weight: 900;
 }
@@ -322,5 +328,25 @@ footer {
 @media screen and (max-width: 480px) {
   .container {
     grid-template-columns: 1fr;
+  }
+
+  header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  #commentTitle {
+    font-size: 2.1rem;
+    text-align: center;
+  }
+
+  #commentDetails {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+
+  .comment-text {
+    text-align: center;
+    font-size: 1rem;
   }
 }

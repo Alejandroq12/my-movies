@@ -94,6 +94,9 @@ APIs
 
 - [Live Demo Link](fpsapc-movies-showcase.netlify.app/)
 
+- <p>Desktop Version:</p>
+<img src="./Assets/mobile.gif" alt="mobile live"/>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
