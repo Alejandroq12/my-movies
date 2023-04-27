@@ -4,7 +4,7 @@
 
 <div align="center">
   
-  <h3><b>JavaScript capstone project Readme</b></h3>
+  <h3><b>Movies Showcase Readme</b></h3>
 
 </div>
 
@@ -34,11 +34,11 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [JavaScript capstone project] <a name="about-project"></a>
+# 📖 [Movies Showcase] <a name="about-project"></a>
 
 
 
-**[JavaScript capstone project]** this project provide users a webapp. Where Users can access a list of movies. User can interact with this webapp, he/she can add likes and also he/she can add a comment.
+**[Moviese Showcase]** this project provide users a webapp. Where Users can access a list of movies. User can interact with this webapp, he/she can add likes and also he/she can add a comment.
 
 ## 🛠 Built With <a name="built-with"></a>
 HTML
@@ -92,7 +92,7 @@ APIs
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://alejandroq12.github.io/group-capstone-js/dist/)
+- [Live Demo Link](fpsapc-movies-showcase.netlify.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
