@@ -1,4 +1,4 @@
-# group-capstone-js
+# Movies Showcase
 
 <a name="readme-top"></a>
 
@@ -29,7 +29,7 @@
 - [🤝 Contributing](#contributing)
 - [⭐️ Show your support](#support)
 - [🙏 Acknowledgements](#acknowledgements)
-- [❓ FAQ(#faq)
+- [❓ FAQ](#faq)
 - [📝 License](#license)
 
 <!-- PROJECT DESCRIPTION -->
@@ -121,7 +121,7 @@ In order to run this project you need:
 Clone this repository to your desired folder or download the Zip folder:
 
 ```
-https://github.com/Alejandroq12/group-capstone-js
+https://github.com/fpsapc/movies-showcase
 ```
 
 - Navigate to the location of the folder in your machine:
