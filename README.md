@@ -234,6 +234,7 @@ I want to thank my coding partner Julio Quezada who help me a lot to complete th
   - [you can see the list of movies]
   - [you can add likes]
   - [you can add comments]
+  - [you can search a movie]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

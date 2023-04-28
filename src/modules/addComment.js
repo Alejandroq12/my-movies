@@ -21,6 +21,7 @@ const addComment = async (showId, name, comment) => {
 
 function createCommentForm(showId) {
   const form = document.createElement('form');
+  form.setAttribute('id', 'addForm');
   form.innerHTML = `
       <h3 class="comment-text">Add Comment</h3>
         <input type="text" id="name" name="name" placeholder= "Your Name" required>

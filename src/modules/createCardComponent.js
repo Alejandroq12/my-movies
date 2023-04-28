@@ -1,5 +1,5 @@
 const createCardComponent = (id, imgSrc = '', text = '', likes = 0) => `
-    <div class="container_card" id="${id}">
+    <div class="container_card movie" id="${id}">
           <img src="${imgSrc}" alt="Image of the movie" class="card-img" />
           <div class="card-content">
             <p class="card-text">${text}</p>

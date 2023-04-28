@@ -5,6 +5,7 @@ import fetchLikes from './modules/fetchLikes.js';
 import updateLikesCount from './modules/updateLikesCount.js';
 import attachLikeButtonListener from './modules/attachLikeButtonListener.js';
 import updateMovieCount from './modules/updateMovieCount.js';
+import searchMovie from './modules/search.js';
 
 const shows = [];
 
@@ -26,6 +27,7 @@ async function main() {
   attachLikeButtonListener();
   initializePopupListeners(shows);
   updateMovieCount();
+  searchMovie(shows);
 }
 
 main();
